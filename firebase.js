@@ -1,66 +1,78 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyCxknpKJ-sWlB7g0e-boUO13EoGmnNzsk4",
-    authDomain: "myprofile-2ccc5.firebaseapp.com",
-    projectId: "myprofile-2ccc5",
-    storageBucket: "myprofile-2ccc5.appspot.com",
-    messagingSenderId: "261353010546",
-    appId: "1:261353010546:web:8ec313fd090b935cc319eb",
-    measurementId: "G-T1RHFNSP44"
-  };
+
+ // Initialize Firebase
 
 
+ const firebaseConfig = {
+  apiKey: "AIzaSyDefTZ3hQl16jIvXbIQ3AXFvkvQWlwIpqI",
+  authDomain: "dream-web-61ad8.firebaseapp.com",
+  projectId: "dream-web-61ad8",
+  storageBucket: "dream-web-61ad8.appspot.com",
+  messagingSenderId: "40035040781",
+  appId: "1:40035040781:web:ab016bb5d72c612e325f44",
+  measurementId: "G-76X879JLY4"
+};
+// Initialize Firebase app
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
 
+const messageContainer = document.getElementById('message-container');
+const serverRef = firebase.database().ref('yatra816');
 
-const savedata = (e)=>{
-  const inp1 = document.getElementById('inp1').value;
-  const inp2 = document.getElementById('inp2').value;
-  const inp3 = document.getElementById('inp3').value;
+// // Send button click event handler
+// sendButton.addEventListener('click', function() {
+//   // const serverName = serverInput.value.trim().toLowerCase();
+//   // const email = emailInput.value;
+//   // const pass = passInput.value;
+//   // const name = nameInput.value.trim();
+//   const links = link.value;
+ 
+//   // const message = messageInput.value;
+
+  
+//     // serverRef.push().set({
+//     //   message: links
+//     // });
+      
+//     // Clear input fields
+//     // nameInput.value = '';
+//     // messageInput.value = '';
     
-    console.log("store");
+  
+// });
 
-    // db.collection("check").doc(inp1+inp2).set({
-    //     name:inp1,
-    //     age:inp2,
-    //     area:inp3
-    // })
-    // .then((docId) =>{
-    //     console.log("docId = "+ docId);
-    // })
-    // .catch((err) =>{
-    //     console.log(err);
-    // })
+// Realtime listener for server messages
+// serverInput.addEventListener('change', function() {
+//   let serverName = serverInput.value.trim().toLowerCase();
 
-    // Add a new document in collection "cities"
+//   // Clear message container
+//   messageContainer.innerHTML = '';
+
+  if (true) {
+    const serverRef = firebase.database().ref('yatra816');
+    serverRef.on('child_added', function(snapshot) {
+      const messages = snapshot.val();
+      displayMessage(messages.message);
+      scrollToBottom();
+    });
+  }
 
 
-    // costume userId = 
+
+// Function to display messages
+function displayMessage(message) {
+  const messageElement = document.createElement('div');
+
+  messageElement.classList.add('all-message');
+  // Check if the sender's name matches your name
+  if (true) {
+    
+    messageElement.classList.add('my-message'); // Add a custom class for your messages
+  }
+  
+  messageElement.innerHTML = `<img src="${message}" alt=""> `;
+  messageContainer.appendChild(messageElement);
 }
 
-// Reference to Firebase Storage bucket
-const storage = firebase.storage();
-const storageRef = storage.ref();
-
-const downloadButton = document.getElementById("downloadButton");
-
-downloadButton.addEventListener("click", () => {
-  // Replace 'your-document-path' with the path to your document in Firebase Storage.
-  const fileRef = storageRef.child("gs://myprofile-2ccc5.appspot.com/Coke-Studio-Season-14-Pasoori-Ali-Sethi-x-Shae-Gill.m4a");
-
-  fileRef.getDownloadURL()
-    .then((url) => {
-      // Create a hidden link and trigger a click to download the file.
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "document.pdf"; // Change the filename as needed.
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    })
-    .catch((error) => {
-      console.error("Error downloading file: ", error);
-    });
-});
+function scrollToBottom() {
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+}
